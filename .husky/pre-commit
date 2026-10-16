@@ -1,0 +1,19 @@
+#!/bin/sh
+
+HOOK_DIR="$(dirname -- "$0")"
+UNAME_S="$(uname -s 2>/dev/null || echo unknown)"
+ENV_INFO="${OSTYPE:-}:${MSYSTEM:-}:$UNAME_S"
+
+# uncommment this line to debug the environment when experiencing pre-commit hook issues
+# echo "[husky pre-commit] OSTYPE='${OSTYPE:-}', MSYSTEM='${MSYSTEM:-}', uname='$UNAME_S'"
+
+if [ "$UNAME_S" = "Darwin" ] || printf '%s' "${OSTYPE:-}" | grep -qi '^darwin'; then
+  /usr/bin/arch -arch arm64 /usr/bin/env sh "$HOOK_DIR/pre-commit-mac.sh"
+elif printf '%s' "$ENV_INFO" | grep -Eqi 'msys|mingw|cygwin'; then
+  /usr/bin/env sh "$HOOK_DIR/pre-commit-windows.sh"
+else
+  echo "Unsupported platform for pre-commit hook: $ENV_INFO"
+   # Fallback for Linux/unknown environments (turbo commands are cross-platform)
+  /usr/bin/env sh "$HOOK_DIR/pre-commit-windows.sh"
+fi
+ 

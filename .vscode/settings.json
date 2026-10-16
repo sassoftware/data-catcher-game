@@ -1,0 +1,16 @@
+{
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "always",
+		"source.organizeImports": "always"
+	},
+	"editor.formatOnPaste": true,
+	"eslint.alwaysShowStatus": true,
+	"files.associations": {
+		".env.local": "properties"
+	},
+	"js/ts.tsdk.path": "node_modules/typescript/lib"
+}
